@@ -1,5 +1,139 @@
 <header class="header">
-  <div class="header__container _container">
-    <div class="gulp-sett">Шапка сайта</div>
+  <!-- объсн позже. JS решен-->
+  <div class="header__wrapper">
+    <!-- огран контейнер -->
+    <div class="header__container _container">
+      <!-- тело. контейнер -->
+      <div class="header__body">
+        <!-- лого и меню -->
+        <div class="header__main">
+          <!-- лого -->
+          <a href="" class="header__logo">1Funiro.</a>
+          <!-- снипет menu - стандарт menu -->
+          <div class="header__menu menu">
+            <!-- меню ссылок -->
+            <nav class="menu__body">
+              <!-- список верхнего уровня -->
+              <ul data-spollers="768,max" class="menu__list">
+                <!-- первый пункт -->
+                <li class="menu__item">
+                  <a href="" class="menu__link">Products</a>
+                  <!-- стрелка отдельно для TOUCH и PC + data_spoller(сполер) -->
+                  <!-- _icon-arrow-down техклас для стрелки вниз (icon.scss)-->
+                  <button
+                    data-spoller
+                    type="button"
+                    class="menu__arrow _icon-arrow-down"
+                  ></button>
+                  <!-- список второго уровня -->
+                  <ul class="menu__sub-list">
+                    <li class="menu__sub-item">
+                      <a href="" class="menu__sub-link">Product #1</a>
+                    </li>
+                    <li class="menu__sub-item">
+                      <a href="" class="menu__sub-link">Product #2</a>
+                    </li>
+                    <li class="menu__sub-item">
+                      <a href="" class="menu__sub-link">Product #3</a>
+                    </li>
+                    <li class="menu__sub-item">
+                      <a href="" class="menu__sub-link">Product #4</a>
+                    </li>
+                  </ul>
+                </li>
+                <!-- второй пункт -->
+                <li class="menu__item">
+                  <a href="" class="menu__link">Rooms</a>
+                  <button
+                    data-spoller
+                    type="button"
+                    class="menu__arrow _icon-arrow-down"
+                  ></button>
+                  <ul class="menu__sub-list">
+                    <li class="menu__sub-item">
+                      <a href="" class="menu__sub-link">Room #1</a>
+                    </li>
+                    <li class="menu__sub-item">
+                      <a href="" class="menu__sub-link">Room #2</a>
+                    </li>
+                    <li class="menu__sub-item">
+                      <a href="" class="menu__sub-link">Room #3</a>
+                    </li>
+                    <li class="menu__sub-item">
+                      <a href="" class="menu__sub-link">Room #4</a>
+                    </li>
+                  </ul>
+                </li>
+                <li class="menu__item">
+                  <a href="" class="menu__link">Inspirations</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- поиск. для адапт поиск скрываем, остав иконку -->
+        <div class="header__search">
+          <!-- общий объ -->
+          <div class="search-form">
+            <!-- кнп появ при скрывании поиска -->
+            <!-- _icon-search техклас подтянет иконку -->
+            <button
+              type="button"
+              class="search-form__icon _icon-search"
+            ></button>
+            <!-- форма поиска -->
+            <form action="#" class="search-form__item">
+              <!-- кнп, выглядит также как иконка. тот же техклас -->
+              <button
+                type="submit"
+                class="search-form__btn _icon-search"
+              ></button>
+              <!-- ввод. data-value(заполнитель - старт шаблон) -->
+              <input
+                autocomplete="off"
+                type="text"
+                name="form[]"
+                data-value="Search for minimalist chair"
+                class="search-form__input"
+              />
+            </form>
+          </div>
+        </div>
+        <!-- контакты -->
+        <div class="header__actions actions-header">
+          <!-- избранное + иконка -->
+          <a
+            href=""
+            class="
+              actions-header__item actions-header__item_favorites
+              _icon-favorite
+            "
+          ></a>
+          <!-- корзина активная с добавления. -->
+          <div class="actions-header__item cart-header">
+            <!-- иконка -->
+            <a href="" class="cart-header__icon _icon-cart"></a>
+            <!-- будущий выпадающий список -->
+            <div class="cart-header__body">
+              <!-- список с товарами, попадают ч/з JS-->
+              <ul class="cart-header__list cart-list"></ul>
+            </div>
+          </div>
+          <!-- автар -->
+          <a
+            href=""
+            class="actions-header__item actions-header__item_user _ibg"
+          >
+            <img src="img/avatar.jpg" alt="Avatar" />
+          </a>
+        </div>
+        <!-- кнп бургера отдельно -->
+        <button type="button" class="icon-menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
   </div>
 </header>

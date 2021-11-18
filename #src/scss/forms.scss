@@ -44,7 +44,7 @@
     background-color: #fff;
     cursor: pointer;
     border-radius: 4px;
-    @media (max-width: $md2+px) {
+    @media (max-width: $md2) {
       font-size: 18px;
     }
   }
@@ -92,7 +92,7 @@
     border-top: 0;
     font-size: 14px;
     padding: 10px 0px 5px 0px;
-    @media (max-width: $md2+px) {
+    @media (max-width: $md2) {
       font-size: 18px;
     }
   }
@@ -354,7 +354,7 @@ textarea.input {
       width: 9px;
       height: 1px;
     }
-    @media (min-width: $md2+px) {
+    @media (min-width: $md2) {
       &:hover {
         &::before,
         &::after {

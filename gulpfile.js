@@ -28,10 +28,9 @@ let uglify = require("gulp-uglify-es").default;
 // сжатие img
 let imagemin = require("gulp-imagemin");
 
-// let plumber = require("gulp-plumber");
-// let newer = require('gulp-newer');
-
-// let version = require('gulp-version-number');
+let plumber = require("gulp-plumber");
+let newer = require('gulp-newer');
+let version = require('gulp-version-number');
 
 // конвертер img в webp
 let webp = require("imagemin-webp");
@@ -61,6 +60,7 @@ let path = {
     css: project_name + "/css/",
     images: project_name + "/img/",
     fonts: project_name + "/fonts/",
+    videos: project_name + "/videos/",
     json: project_name + "/json/",
   },
   // пути ИСХОД
@@ -76,7 +76,9 @@ let path = {
       "!**/favicon.*",
     ],
     fonts: src_folder + "/fonts/*.ttf",
-    json: src_folder + "/json/**/*.*",
+    videos: src_folder + "/videos/*.*",
+    json: src_folder + "/json/*.*",
+    // json: src_folder + "/json/**/*.*",
   },
   // пути к постояно прослушиваемым файлам
   watch: {
@@ -84,7 +86,8 @@ let path = {
     js: src_folder + "/**/*.js",
     css: src_folder + "/scss/**/*.scss",
     images: src_folder + "/img/**/*.{jpg,jpeg,png,svg,gif,ico,webp}",
-    json: src_folder + "/json/**/*.*",
+    json: src_folder + "/json/*.*",
+    // json: src_folder + "/json/**/*.*",
   },
   // путь к ПРОД для удал. каждый раз при запуске Gulp
   clean: "./" + project_name + "/",
@@ -110,7 +113,7 @@ function browserSync(done) {
     // убир. доп поле инфы
     notify: false,
     // порт открытия брауз.
-    port: 8081, // 3000,
+    port: 8080, // 8081, // 3000,
   });
 }
 // fn для Отслеж п/ф для обновл стр.
@@ -131,23 +134,23 @@ function clean() {
 // fn для html
 function html() {
   // возвращ перем src по пути ИСХОД
-  return (
-    src(path.src.html, {})
-      // Команды
-      // сборщик из кусков кода
-      .pipe(fileinclude())
-      // интегр webp в html
-      .pipe(webphtml())
-      // переброс ф. из ИСХОД в ПРОД. В fn pipe команда gulp
-      // времено Стар
-      .pipe(dest(path.build.html))
-      // .on('error', function (err) {
-      // 	console.error('Error!', err.message);
-      // })
-      // .pipe(dest(path.build.html))
-      // обнов стр./перазагрузка браузера
-      .pipe(browsersync.stream())
-  );
+  // Команды
+  // пока хз
+  // сборщик из кусков кода
+  // интегр webp в html
+  // переброс ф. из ИСХОД в ПРОД. В fn pipe команда gulp
+  // времено Стар
+  // .on('error', function (err) {
+  // 	console.error('Error!', err.message);
+  // })
+  // .pipe(dest(path.build.html))
+  // обнов стр./перазагрузка браузера
+  return src(path.src.html, {})
+    .pipe(plumber())
+    .pipe(fileinclude())
+    .pipe(webphtml())
+    .pipe(dest(path.build.html))
+    .pipe(browsersync.stream());
 }
 // fn для css. Разраб
 // function css() {
@@ -186,11 +189,9 @@ function html() {
 //   );
 // }
 
-// function json() {
-// 	return src(path.src.json, {})
-// 		.pipe(dest(path.build.json))
-// 		.pipe(browsersync.stream());
-// }
+function json() {
+  return src(path.src.json).pipe(plumber()).pipe(dest(path.build.json));
+}
 
 // function js() {
 // 	return src(path.src.js, {})
@@ -225,14 +226,14 @@ function html() {
 // 		.pipe(dest(path.build.html))
 // }
 
-// function fonts_otf() {
-// 	return src('./' + src_folder + '/fonts/*.otf')
-// 		.pipe(plumber())
-// 		.pipe(fonter({
-// 			formats: ['ttf']
-// 		}))
-// 		.pipe(gulp.dest('./' + src_folder + '/fonts/'));
-// }
+function fonts_otf() {
+	return src('./' + src_folder + '/fonts/*.otf')
+		.pipe(plumber())
+		.pipe(fonter({
+			formats: ['ttf']
+		}))
+		.pipe(gulp.dest('./' + src_folder + '/fonts/'));
+}
 
 // fn fonts. обработка шрифтов
 function fonts() {
@@ -319,7 +320,7 @@ function css() {
     // src(path.src.css, {})
     // временно Стар
     src(path.src.css)
-      // .pipe(plumber())
+      .pipe(plumber())
       // обраб scss. настр
       .pipe(
         // формир. файл равёрнутым(удобно смотреть)
@@ -369,121 +370,328 @@ function css() {
 // fn JS. ПРОД
 // function jsBuild() {
 // временно Стар
-function js() {
-  // let appPath = path.build.js + 'app.min.js';
-  // let vendorsPath = path.build.js + 'vendors.min.js';
-  // del(appPath);
-  // del(vendorsPath);
-  // return src(path.src.js, {})
-  return (
-    src(path.src.js)
-      // .pipe(plumber())
-      .pipe(fileinclude())
-      // .pipe(gulp.dest(path.build.js))
-      // временно Стар
-      .pipe(dest(path.build.js))
-      // оптимизация(сжатие) js
-      // .pipe(uglify(/* options */))
-      .pipe(uglify())
-      // .on('error', function (err) { console.log(err.toString()); this.emit('end'); })
-      .pipe(
-        rename({
-          // suffix: ".min",
-          // extname: ".js"
-          // временно Стар
-          extname: ".min.js",
-        })
-      )
-      .pipe(dest(path.build.js))
-      .pipe(browsersync.stream())
-  );
-}
-// fn IMAGES. ПРОД
-// function imagesBuild() {
-// временно Стар
-function images() {
-  // return (
-  //   src(path.src.images)
-  // временно Стар
-  return (
-    src(path.src.images)
-      //	// .pipe(newer(path.build.images))
-      // компилятор img в web
-      .pipe(
-        imagemin([
-          webp({
-            // качество изобр
-            quality: 70,
-          }),
-        ])
-      )
-      // переименовка типа файла
-      .pipe(
-        rename({
-          extname: ".webp",
-        })
-      )
-      // копир webp в ПРОД
-      .pipe(dest(path.build.images))
-      // обраб ИСХОД для imagemin(не все поддерж webp)
-      .pipe(src(path.src.images))
-      // //.pipe(newer(path.build.images))
-      // сжатие img
-      .pipe(
-        imagemin({
-          progressive: true,
-          // улучш. раб с svg
-          svgoPlugins: [{ removeViewBox: false }],
-          // раб с разн формат изобр
-          interlaced: true,
-          // сила сжатия
-          optimizationLevel: 3, // 0 to 7
-        })
-      )
-      .pipe(dest(path.build.images))
-      .pipe(browsersync.stream())
-  );
-  // );
-}
-
-// let fontsBuild = gulp.series(fonts_otf, fonts, fontstyle);
-
-// function infofile() {
+// function js() {
+//   // let appPath = path.build.js + 'app.min.js';
+//   // let vendorsPath = path.build.js + 'vendors.min.js';
+//   // del(appPath);
+//   // del(vendorsPath);
+//   return (
+//     src(path.src.js, {})
+//       .pipe(plumber())
+//       .pipe(fileinclude())
+//       // .pipe(gulp.dest(path.build.js))
+//       // временно Стар
+//       .pipe(dest(path.build.js))
+//       // оптимизация(сжатие) js
+//       // .pipe(uglify(/* options */))
+//       .pipe(uglify())
+//       // .on('error', function (err) { console.log(err.toString()); this.emit('end'); })
+//       .pipe(
+//         rename({
+//           // suffix: ".min",
+//           // extname: ".js"
+//           // временно Стар
+//           extname: ".min.js",
+//         })
+//       )
+//       .pipe(dest(path.build.js))
+//       .pipe(browsersync.stream())
+//   );
+// }
+// // fn IMAGES. ПРОД
+// // function imagesBuild() {
+// // временно Стар
+// function images() {
+//   // return (
+//   //   src(path.src.images)
+//   // временно Стар
+//   return (
+//     src(path.src.images)
+//       //	// .pipe(newer(path.build.images))
+//       // компилятор img в web
+//       .pipe(
+//         imagemin([
+//           webp({
+//             // качество изобр
+//             quality: 70,
+//           }),
+//         ])
+//       )
+//       // переименовка типа файла
+//       .pipe(
+//         rename({
+//           extname: ".webp",
+//         })
+//       )
+//       // копир webp в ПРОД
+//       .pipe(dest(path.build.images))
+//       // обраб ИСХОД для imagemin(не все поддерж webp)
+//       .pipe(src(path.src.images))
+//       // //.pipe(newer(path.build.images))
+//       // сжатие img
+//       .pipe(
+//         imagemin({
+//           progressive: true,
+//           // улучш. раб с svg
+//           svgoPlugins: [{ removeViewBox: false }],
+//           // раб с разн формат изобр
+//           interlaced: true,
+//           // сила сжатия
+//           optimizationLevel: 3, // 0 to 7
+//         })
+//       )
+//       .pipe(dest(path.build.images))
+//       .pipe(browsersync.stream())
+//   );
+//   // );
 // }
 
-// fn cb. для коррект раб
-function cb() {}
+// // let fontsBuild = gulp.series(fonts_otf, fonts, fontstyle);
 
-// Серии выполняемых fn и Сценарии выполнения. ПРОД
-// let buildDev = gulp.series(clean, gulp.parallel(fontsBuild, copyFolders, json, html, css, js, favicon, images));
-// let build = gulp.parallel(htmlBuild, cssBuild, jsBuild, imagesBuild);
-// Серии fn вкл-ых в проц. выполн. РАЗРАБ (html,css,js,images,fonts выполн одновременно)
-// временно Стар
+// // function infofile() {
+// // }
+
+// // fn cb. для коррект раб
+// function cb() {}
+
+// // Серии выполняемых fn и Сценарии выполнения. ПРОД
+// // let buildDev = gulp.series(clean, gulp.parallel(fontsBuild, copyFolders, json, html, css, js, favicon, images));
+// // let build = gulp.parallel(htmlBuild, cssBuild, jsBuild, imagesBuild);
+// // Серии fn вкл-ых в проц. выполн. РАЗРАБ (html,css,js,images,fonts выполн одновременно)
+// // временно Стар
+// let build = gulp.series(
+//   clean,
+//   gulp.parallel(html, css, js, images, fonts),
+//   fontsStyle
+// );
+// // Сценарий выполнения. РАЗРАБ (запуск/проверка робот.собн.)
+// // let watch = gulp.series(buildDev, gulp.parallel(watchFiles, browserSync));
+// // временно Стар
+// let watch = gulp.parallel(build, watchFiles, browserSync);
+
+// // Связь gulp с переменными
+// // exports.copy = copyFolders;
+// // exports.fonts = fontsBuild;
+// exports.build = build;
+// exports.watch = watch;
+// // при запуске gulp выполн перем по умолч.(default > watch > browserSync)
+// exports.default = watch;
+// exports.html = html;
+// // временно Стар
+// exports.css = css;
+// // временно Стар
+// exports.js = js;
+// // временно Стар
+// exports.images = images;
+// // временно Стар
+// exports.fonts = fonts;
+// // временно Стар
+// exports.fontsStyle = fontsStyle;
+function js() {
+  return src(path.src.js, {})
+    .pipe(plumber())
+    .pipe(fileinclude())
+    .pipe(gulp.dest(path.build.js))
+    .pipe(uglify(/* options */))
+    .on("error", function (err) {
+      console.log(err.toString());
+      this.emit("end");
+    })
+    .pipe(
+      rename({
+        suffix: ".min",
+        extname: ".js",
+      })
+    )
+    .pipe(dest(path.build.js))
+    .pipe(browsersync.stream());
+}
+function images() {
+  return src(path.src.images)
+    .pipe(newer(path.build.images))
+    .pipe(
+      imagemin([
+        webp({
+          quality: 75,
+        }),
+      ])
+    )
+    .pipe(
+      rename({
+        extname: ".webp",
+      })
+    )
+    .pipe(dest(path.build.images))
+    .pipe(src(path.src.images))
+    .pipe(newer(path.build.images))
+    .pipe(
+      imagemin({
+        progressive: true,
+        svgoPlugins: [{ removeViewBox: false }],
+        interlaced: true,
+        optimizationLevel: 3, // 0 to 7
+      })
+    )
+    .pipe(dest(path.build.images));
+}
+function favicon() {
+  return src(path.src.favicon)
+    .pipe(plumber())
+    .pipe(
+      rename({
+        extname: ".ico",
+      })
+    )
+    .pipe(dest(path.build.html));
+}
+function videos() {
+  return src(path.src.videos).pipe(plumber()).pipe(dest(path.build.videos));
+}
+function fonts() {
+  src(path.src.fonts)
+  .pipe(plumber())
+  .pipe(ttf2woff())
+  .pipe(dest(path.build.fonts));
+  return src(path.src.fonts)
+  .pipe(ttf2woff2())
+  .pipe(dest(path.build.fonts))
+  .pipe(browsersync.stream());
+}
+// function fonts_otf() {
+//   return src("./" + src_folder + "/fonts/*.otf")
+//     .pipe(plumber())
+//     .pipe(
+//       fonter({
+//         formats: ["ttf"],
+//       })
+//     )
+//     .pipe(gulp.dest("./" + src_folder + "/fonts/"));
+// }
+function fontstyle() {
+  let file_content = fs.readFileSync(src_folder + "/scss/fonts.scss");
+  if (file_content == "") {
+    fs.writeFile(src_folder + "/scss/fonts.scss", "", cb);
+    return fs.readdir(path.build.fonts, function (err, items) {
+      if (items) {
+        let c_fontname;
+        for (var i = 0; i < items.length; i++) {
+          let fontname = items[i].split(".");
+          fontname = fontname[0];
+          if (c_fontname != fontname) {
+            fs.appendFile(
+              src_folder + "/scss/fonts.scss",
+              '@include font("' +
+                fontname +
+                '", "' +
+                fontname +
+                '", "400", "normal");\r\n',
+              cb
+            );
+          }
+          c_fontname = fontname;
+        }
+      }
+    });
+  }
+}
+
+/*
+function checkWeight(fontname) {
+  let weight = 400;
+  switch (true) {
+	 case /Thin/.test(fontname):
+		weight = 100;
+		break;
+	 case /ExtraLight/.test(fontname):
+		weight = 200;
+		break;
+	 case /Light/.test(fontname):
+		weight = 300;
+		break;
+	 case /Regular/.test(fontname):
+		weight = 400;
+		break;
+	 case /Medium/.test(fontname):
+		weight = 500;
+		break;
+	 case /SemiBold/.test(fontname):
+		weight = 600;
+		break;
+	 case /Semi/.test(fontname):
+		weight = 600;
+		break;
+	 case /Bold/.test(fontname):
+		weight = 700;
+		break;
+	 case /ExtraBold/.test(fontname):
+		weight = 800;
+		break;
+	 case /Heavy/.test(fontname):
+		weight = 700;
+		break;
+	 case /Black/.test(fontname):
+		weight = 900;
+		break;
+	 default:
+		weight = 400;
+	}
+	return weight;
+}
+function fontsStyle(done) {
+  let file_content = fs.readFileSync(source_folder + '/scss/fonts.scss');
+  fs.writeFile(source_folder + '/scss/fonts.scss', '', cb);
+  fs.readdir(path.build.fonts, function (err, items) {
+	 if (items) {
+		let c_fontname;
+		for (var i = 0; i < items.length; i++) {
+		  let fontname = items[i].split('.');
+		  fontname = fontname[0];
+		  let font = fontname.split('-')[0];
+		  let weight = checkWeight(fontname);
+		  if (c_fontname != fontname) {
+			 fs.appendFile(source_folder + '/scss/fonts.scss', '@include font("' + font + '", "' + fontname + '", "' + weight + '" , "normal");\r\n', cb);
+		  }
+		  c_fontname = fontname;
+		}
+	 }
+	});
+	done();
+}
+*/
+
+function infofile() {}
+function cb() {}
+function clean() {
+  return del(path.clean);
+}
+function watchFiles() {
+  gulp.watch([path.watch.html], html);
+  gulp.watch([path.watch.css], css);
+  gulp.watch([path.watch.js], js);
+  gulp.watch([path.watch.images], images);
+  gulp.watch([path.watch.json], json);
+}
 let build = gulp.series(
   clean,
-  gulp.parallel(html, css, js, images, fonts),
-  fontsStyle
+  // fonts_otf,
+  gulp.parallel(html, css, js, json, favicon, images, videos),
+  fonts,
+  gulp.parallel(fontstyle, infofile)
 );
-// Сценарий выполнения. РАЗРАБ (запуск/проверка робот.собн.)
-// let watch = gulp.series(buildDev, gulp.parallel(watchFiles, browserSync));
-// временно Стар
 let watch = gulp.parallel(build, watchFiles, browserSync);
 
-// Связь gulp с переменными
-// exports.copy = copyFolders;
-// exports.fonts = fontsBuild;
+exports.html = html;
+exports.css = css;
+exports.js = js;
+exports.json = json;
+exports.videos = videos;
+exports.favicon = favicon;
+exports.infofile = infofile;
+// exports.fonts_otf = fonts_otf;
+exports.fontstyle = fontstyle;
+exports.fonts = fonts;
+exports.images = images;
+exports.clean = clean;
 exports.build = build;
 exports.watch = watch;
-// при запуске gulp выполн перем по умолч.(default > watch > browserSync)
 exports.default = watch;
-exports.html = html;
-// временно Стар
-exports.css = css;
-// временно Стар
-exports.js = js;
-// временно Стар
-exports.images = images;
-// временно Стар
-exports.fonts = fonts;
-// временно Стар
-exports.fontsStyle = fontsStyle;

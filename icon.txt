@@ -1,0 +1,9 @@
+Подробнее:
+https://www.youtube.com/watch?v=QYwI3LRCnRE
+https://www.youtube.com/watch?v=3z7TRd7tzhE
+выгр в svg. 
+  выдел icon -> для корректной выгрузки в figma ctr+shift+O (Menu-Object-Outkline stroke) -> export(svg-export)
+созд icon шрифт на https://icomoon.io/. 
+  приложение icomoon -> Нов проект -> Импорт всех своих icon -> удалить цвета -> выдел icon(стрелка select) -> клиек созд штршт -> переименов(назв=класс) -> настр. шестерёнка низ лево(назв шрифта, префикс класса(_icon-)) -> скачать
+заливка в проект.
+  разархив -> берём ф. style.css(переименов в iconfonts.css или подкл в свой scss) + п. fonts/ -> подкл iconfonts.css в css(scss) -> в html подлкл ф.(или перенос кода в подлюченый) -> подклШрифты/редачимПуть в css(scss)(префиксу класса[class^="icon-"] нажнач ::before на(чтоб подкл icon шрифт не менял основной текст), путь к fonts(../)) -> берём класс icon подкл в html
