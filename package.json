@@ -24,20 +24,21 @@
     "gulp-autoprefixer": "latest",
     "gulp-clean-css": "latest",
     "gulp-file-include": "latest",
+    "gulp-fonter": "^0.3.0",
     "gulp-group-css-media-queries": "latest",
     "gulp-imagemin": "^7.1.0",
+    "gulp-newer": "^1.4.0",
+    "gulp-plumber": "^1.2.1",
     "gulp-rename": "latest",
     "gulp-sass": "latest",
     "gulp-ttf2woff": "latest",
     "gulp-ttf2woff2": "latest",
     "gulp-uglify-es": "latest",
+    "gulp-version-number": "^0.2.4",
     "gulp-webp": "latest",
     "gulp-webp-html": "latest",
     "gulp-webpcss": "latest",
     "sass": "latest",
-    "webp-converter": "^2.2.3",
-    "gulp-newer": "latest",
-    "gulp-plumber": "latest",
-    "gulp-version-number": "latest"
+    "webp-converter": "^2.2.3"
   }
 }

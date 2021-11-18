@@ -217,7 +217,7 @@ body._lock {
 }
 
 ._container {
-  max-width: 1270;
+  max-width: 1270px;
   padding: 0px 15px;
   margin: 0 auto;
 }
@@ -1072,6 +1072,7 @@ body._lock {
 
 .slider-main__controls {
   -ms-flex-item-align: stretch;
+      -ms-grid-row-align: stretch;
       align-self: stretch;
   margin: 0px 0px 20px 0px;
 }
@@ -1188,14 +1189,19 @@ body._lock {
 }
 
 .advantages__item {
+  display: -ms-inline-grid;
   display: inline-grid;
   padding: 15px 0;
-  grid-template: auto auto/85px 1fr;
+  -ms-grid-rows: auto auto;
+  -ms-grid-columns: 85px 1fr;
+      grid-template: auto auto/85px 1fr;
 }
 
 .advantages__icon {
   text-align: center;
-  align-self: center;
+  -ms-grid-row-align: center;
+      align-self: center;
+  -ms-grid-row-span: 2;
   grid-row: span 2;
 }
 
@@ -1220,6 +1226,7 @@ body._lock {
 }
 
 .products__items {
+  display: -ms-grid;
   display: grid;
   gap: 32px;
   grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
@@ -1417,6 +1424,7 @@ body._lock {
   position: relative;
   z-index: 5;
   -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
       align-self: center;
 }
 
@@ -1555,6 +1563,7 @@ body._lock {
 }
 
 .label-slider {
+  display: -ms-grid;
   display: grid;
   color: #616161;
   gap: 8px;
@@ -1564,6 +1573,7 @@ body._lock {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: start;
+  -ms-grid-columns: auto 27px auto;
   grid-template-columns: auto 27px auto;
 }
 
@@ -1696,7 +1706,9 @@ body._lock {
 }
 
 .furniture__items {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: auto;
   grid-template-columns: auto;
   grid-auto-flow: column;
   -webkit-box-align: center;
@@ -1724,9 +1736,11 @@ body._lock {
 }
 
 .furniture__row {
+  display: -ms-inline-grid;
   display: inline-grid;
   padding: 0px 8px;
   gap: 16px;
+  -ms-grid-columns: auto;
   grid-template-columns: auto;
   grid-auto-flow: column;
 }
@@ -2052,242 +2066,242 @@ body._lock {
   }
 }
 
-@media (max-width: 1270px) {
+@media (max-width: 1270pxpx) {
   .main-slider__content {
     margin-bottom: calc(
         15px + 65 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .content-main {
     padding-top: calc(
         15px + 45 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .content-main {
     padding-bottom: calc(
         15px + 45 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .content-main__title {
     font-size: calc(
         24px + 32 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .content-main__text {
     font-size: calc(
         16px + 4 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .content-main__button {
     min-height: calc(
         45px + 33 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .content-main__button {
     font-size: calc(
         16px + 4 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-main__content {
     padding: calc(
         15px + 9 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-main__title {
     font-size: calc(
         22px + 6 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-main__price {
     font-size: calc(
         16px + 4 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .advantages {
     padding-top: calc(
         30px + 58 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .advantages {
     padding-bottom: calc(
         30px + 58 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .products {
     padding-bottom: calc(
         30px + 14 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .item-product__labels {
     right: calc(
         10px + 14 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .item-product__labels {
     top: calc(
         10px + 14 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .item-product__title {
     font-size: calc(
         20px + 4 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .item-product__price {
     font-size: calc(
         16px + 4 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .item-product__price_old {
     font-size: calc(
         14px + 2 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .rooms {
     padding-top: calc(
         30px + 14 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .rooms {
     padding-bottom: calc(
         30px + 14 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-rooms__slide {
     min-height: calc(
         400px + 185 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-rooms__content {
     left: calc(
         15px + 9 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-rooms__content {
     bottom: calc(
         15px + 9 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-rooms__content {
     padding: calc(
         15px + 17 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-rooms__title {
     font-size: calc(
         24px + 4 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .tips {
     padding-top: calc(
         30px + 14 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .tips {
     padding-bottom: calc(
         30px + 14 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-tips__body {
     margin-left: calc(
         -15px + -17 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-tips__body {
     margin-right: calc(
         -15px + -17 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-tips__body {
     padding: calc(
         15px + 17 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-tips__title {
     font-size: calc(
         18px + 6 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-tips__dotts {
     padding-top: calc(
         0px + 8 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .furniture {
     padding-bottom: calc(
         40px + 45 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .furniture__label {
     font-size: calc(
         16px + 4 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 }
@@ -2352,7 +2366,9 @@ body._lock {
   }
 
   .advantages__item {
-    grid-template: auto auto/auto 1fr;
+    -ms-grid-rows: auto auto;
+    -ms-grid-columns: auto 1fr;
+        grid-template: auto auto/auto 1fr;
   }
 
   .advantages__icon {
@@ -2381,41 +2397,41 @@ body._lock {
   }
 }
 
-@media (min-width: 991.98px) and (max-width: 1270px) {
+@media (min-width: 991.98px) and (max-width: 1270pxpx) {
   .content-main {
     padding: calc(
         1px + 59 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-main__body {
     width: calc(
         290px + 644 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .rooms__body {
     padding-right: calc(
         30px + 50 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 }
 
-@media (min-width: 767.98px) and (max-width: 1270px) {
+@media (min-width: 767.98px) and (max-width: 1270pxpx) {
   .slider-main__content {
     right: calc(
         0px + 40 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 
   .slider-main__content {
     bottom: calc(
         0px + 40 *
-          ((100vw - 320px) / 950)
+          ((100vw - 320px) / 950px)
       );
   }
 }
