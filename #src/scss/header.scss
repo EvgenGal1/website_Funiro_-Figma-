@@ -110,29 +110,34 @@
       // для прокрутки меню
       overflow: auto;
       top: 0;
-      left: 0;
-      //     left: -100%;
-      background-color: #fcf8f3;
+      // left: 0;
+      left: -100%;
+      background-color: $backGround;
       // плвный переход для left
       transition: left 0.3s ease 0s;
       padding: 70px 15px 30px 15px;
-      //     &::before {
-      //       content: "";
-      //       position: fixed;
-      //       width: 100%;
-      //       height: 50px;
-      //       top: 0;
-      //       left: -100%;
-      //       transition: left 0.3s ease 0s;
-      //       background-color: #fcf8f3;
-      //       z-index: 2;
-      //     }
-      //     &._active {
-      //       left: 0;
-      //       &::before {
-      //         left: 0;
-      //       }
-      //     }
+      // прокладка м/у меню ?header__body и menu__body?
+      &::before {
+        content: "";
+        position: fixed;
+        width: 100%;
+        // высота на этом разрешении
+        height: 50px;
+        top: 0;
+        left: -100%;
+        // аним left
+        transition: left 0.3s ease 0s;
+        background-color: #fcf8f3;
+        z-index: 2;
+      }
+      // изначально меню скрыт, вывод ико бургер, при клик меню показывать
+      // при _action показ меню
+      &._active {
+        left: 0;
+        &::before {
+          left: 0;
+        }
+      }
     }
   }
   // лист(меню) первый уровень
@@ -202,9 +207,13 @@
         }
       }
     }
+    // для мобил
     @media (max-width: $md3) {
+      // + отступ снизу, - отступы с лево и право
       margin: 0px 0px 15px 0px;
+      // у последн
       &:last-child {
+        // низ 0
         margin-bottom: 0;
       }
     }
@@ -213,9 +222,10 @@
   &__link {
     font-weight: 500;
     // ??? не понятно с цветом
-    // color: inherit;
+    color: inherit;
     // аним цвета. при hover на родителя
     transition: color 0.3s ease 0s;
+    // на мобилах увелич текст
     @media (max-width: $md3) {
       font-size: 24px;
       font-weight: 600;
@@ -228,9 +238,13 @@
     // аним для переворота
     transition: all 0.3s ease 0s;
     font-size: 8px;
+    // на мобилах
     @media (max-width: $md3) {
+      // увели текст
       font-size: 14px;
+      // _фсешму добавл при откр spoller
       &._active {
+        // переворот стрелки
         transform: rotate(-180deg);
       }
     }
@@ -256,6 +270,7 @@
       // иначально none
       pointer-events: none;
     }
+    // на мобилах во всю ширину
     @media (max-width: $md3) {
       margin: 10px -15px 0px -15px;
     }
@@ -266,6 +281,7 @@
     &:not(:last-child) {
       margin: 0px 0px 5px 0px;
       @media (max-width: $md3) {
+        // растоян м/у
         margin: 0px 0px 10px 0px;
       }
     }
@@ -274,11 +290,14 @@
   &__sub-link {
     color: #fff;
     line-height: 120%;
+    // для ПК
     @media (any-hover: hover) {
       &:hover {
+        // подчеркивание принаведении
         text-decoration: underline;
       }
     }
+    // на мобиле увелич шрифт
     @media (max-width: $md3) {
       font-size: 18px;
     }
@@ -507,47 +526,49 @@
   //   }
 }
 
-// кнп бургера
+// кнп бургера(копир из Burger ниже)(.icon-menu,menu__body ч/з JS)
 .icon-menu {
-  //   display: none;
-  //   @media (max-width: $md3) {
-  //     @include adaptiv-value("margin-left", 32, 15, 1);
-  //     position: relative;
-  //     display: block;
-  //     flex: 0 0 30px;
-  //     height: 18px;
-  //     cursor: pointer;
-  //     z-index: 5;
-  //     span {
-  //       transition: all 0.3s ease 0s;
-  //       top: calc(50% - 1px);
-  //       left: 0px;
-  //       position: absolute;
-  //       width: 100%;
-  //       height: 2px;
-  //       background-color: #000;
-  //       &:first-child {
-  //         top: 0px;
-  //       }
-  //       &:last-child {
-  //         top: auto;
-  //         bottom: 0px;
-  //       }
-  //     }
-  //     &._active {
-  //       span {
-  //         transform: scale(0);
-  //         &:first-child {
-  //           transform: rotate(-45deg);
-  //           top: calc(50% - 1px);
-  //         }
-  //         &:last-child {
-  //           transform: rotate(45deg);
-  //           bottom: calc(50% - 1px);
-  //         }
-  //       }
-  //     }
-  //   }
+    display: none;
+    @media (max-width: $md3) {
+      // отзывч отступы
+      @include adaptiv-value("margin-left", 32, 15, 1);
+      position: relative;
+      display: block;
+      // ширина
+      flex: 0 0 30px;
+      height: 18px;
+      cursor: pointer;
+      z-index: 5;
+      span {
+        transition: all 0.3s ease 0s;
+        top: calc(50% - 1px);
+        left: 0px;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background-color: #000;
+        &:first-child {
+          top: 0px;
+        }
+        &:last-child {
+          top: auto;
+          bottom: 0px;
+        }
+      }
+      &._active {
+        span {
+          transform: scale(0);
+          &:first-child {
+            transform: rotate(-45deg);
+            top: calc(50% - 1px);
+          }
+          &:last-child {
+            transform: rotate(45deg);
+            bottom: calc(50% - 1px);
+          }
+        }
+      }
+    }
 }
 //====================================================================================================
 
