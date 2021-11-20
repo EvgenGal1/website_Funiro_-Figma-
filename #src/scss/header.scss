@@ -6,10 +6,10 @@
   width: 100%;
   top: 0;
   left: 0;
-  // min-height: 40px;
-  // @media (max-width: $md3) {
-  //   min-height: 5px;
-  // }
+  min-height: 40px;
+  @media (max-width: $md3) {
+    min-height: 5px;
+  }
   // &._scroll {
   //   .header__wrapper {
   //     background-color: rgba(255, 255, 255, 0.8);
@@ -46,13 +46,16 @@
     padding: 5px 0;
     // мерим высоту в макете
     min-height: 125px;
-    // position: relative;
-    // @media (max-width: $md2) {
-    //   min-height: 80px;
-    // }
-    // @media (max-width: $md3) {
-    //   min-height: 50px;
-    // }
+    // чтоб .search-form__item при TOUCH не прилипал к краям
+    position: relative;
+    // уменьш шапку при < 992
+    @media (max-width: $md2) {
+      min-height: 80px;
+    }
+    // уменьш шапку при < 768
+    @media (max-width: $md3) {
+      min-height: 50px;
+    }
   }
 
   // ЛОГО + МЕНЮ
@@ -65,7 +68,7 @@
     flex: 0 0 math.div(494, 1240) * 100%;
     // при < 992
     @media (max-width: $md2) {
-      // увеличиваем
+      // увеличиваем на макс ширину
       flex: 1 1 auto;
     }
   }
@@ -74,8 +77,8 @@
     color: #000;
     font-weight: 700;
     font-size: 24px;
-    //   position: relative;
-    //   z-index: 5;
+    position: relative;
+    z-index: 5;
     // адаптив размер. px переводим в %
     line-height: math.div(29, 24) * 100%;
     line-height: 29px;
@@ -98,36 +101,40 @@
 .menu {
   // макет. растоян м/у лого и поиском. 1 уменьшает меню
   flex: 0 1 420px;
-  // &__body {
-  //   @media (max-width: $md3) {
-  //     position: fixed;
-  //     width: 100%;
-  //     height: 100%;
-  //     overflow: auto;
-  //     top: 0;
-  //     left: -100%;
-  //     background-color: #fcf8f3;
-  //     transition: left 0.3s ease 0s;
-  //     padding: 70px 15px 30px 15px;
-  //     &::before {
-  //       content: "";
-  //       position: fixed;
-  //       width: 100%;
-  //       height: 50px;
-  //       top: 0;
-  //       left: -100%;
-  //       transition: left 0.3s ease 0s;
-  //       background-color: #fcf8f3;
-  //       z-index: 2;
-  //     }
-  //     &._active {
-  //       left: 0;
-  //       &::before {
-  //         left: 0;
-  //       }
-  //     }
-  //   }
-  // }
+  &__body {
+    // при < 768
+    @media (max-width: $md3) {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      // для прокрутки меню
+      overflow: auto;
+      top: 0;
+      left: 0;
+      //     left: -100%;
+      background-color: #fcf8f3;
+      // плвный переход для left
+      transition: left 0.3s ease 0s;
+      padding: 70px 15px 30px 15px;
+      //     &::before {
+      //       content: "";
+      //       position: fixed;
+      //       width: 100%;
+      //       height: 50px;
+      //       top: 0;
+      //       left: -100%;
+      //       transition: left 0.3s ease 0s;
+      //       background-color: #fcf8f3;
+      //       z-index: 2;
+      //     }
+      //     &._active {
+      //       left: 0;
+      //       &::before {
+      //         left: 0;
+      //       }
+      //     }
+    }
+  }
   // лист(меню) первый уровень
   &__list {
     // прячем при мобиле, пишем сразу в mobile ferst(шире 768)
@@ -195,23 +202,24 @@
         }
       }
     }
-    //   @media (max-width: $md3) {
-    //     margin: 0px 0px 15px 0px;
-    //     &:last-child {
-    //       margin-bottom: 0;
-    //     }
-    //   }
+    @media (max-width: $md3) {
+      margin: 0px 0px 15px 0px;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
   // ссылка 1 ур
   &__link {
     font-weight: 500;
-    color: inherit;
+    // ??? не понятно с цветом
+    // color: inherit;
     // аним цвета. при hover на родителя
     transition: color 0.3s ease 0s;
-    //   @media (max-width: $md3) {
-    //     font-size: 24px;
-    //     font-weight: 600;
-    //   }
+    @media (max-width: $md3) {
+      font-size: 24px;
+      font-weight: 600;
+    }
   }
   // стрелка
   &__arrow {
@@ -220,12 +228,12 @@
     // аним для переворота
     transition: all 0.3s ease 0s;
     font-size: 8px;
-    //   @media (max-width: $md3) {
-    //     font-size: 14px;
-    //     &._active {
-    //       transform: rotate(-180deg);
-    //     }
-    //   }
+    @media (max-width: $md3) {
+      font-size: 14px;
+      &._active {
+        transform: rotate(-180deg);
+      }
+    }
   }
   // лист(меню) второй ур
   &__sub-list {
@@ -248,48 +256,54 @@
       // иначально none
       pointer-events: none;
     }
-    //   @media (max-width: $md3) {
-    //     margin: 10px -15px 0px -15px;
-    //   }
+    @media (max-width: $md3) {
+      margin: 10px -15px 0px -15px;
+    }
   }
   // пункт 2 ур
   &__sub-item {
     // для всех кроме последнего
     &:not(:last-child) {
       margin: 0px 0px 5px 0px;
-      //     @media (max-width: $md3) {
-      //       margin: 0px 0px 10px 0px;
-      //     }
+      @media (max-width: $md3) {
+        margin: 0px 0px 10px 0px;
+      }
     }
   }
   // ссылка 2 ур
   &__sub-link {
     color: #fff;
     line-height: 120%;
-    //   @media (any-hover: hover) {
-    //     &:hover {
-    //       text-decoration: underline;
-    //     }
-    //   }
-    //   @media (max-width: $md3) {
-    //     font-size: 18px;
-    //   }
+    @media (any-hover: hover) {
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+    @media (max-width: $md3) {
+      font-size: 18px;
+    }
   }
 }
 
 // ПОИСК
 .search-form {
   max-width: 473px;
-  // _active из JS
-    &._active {
-      .search-form__item {
-        opacity: 1;
-        top: 100%;
-        visibility: visible;
-      }
-      .search-form__icon {
-        color: $orangeColor;
-  }
+  // _active из JS.
+  &._active {
+    // показ форму
+    .search-form__item {
+      opacity: 1;
+      top: 100%;
+      visibility: visible;
+    }
+    //  кнп-поиск TOUCH
+    .search-form__icon {
+      color: $orangeColor;
+    }
+    //  кнп-поиск ПК
+    .search-form__btn {
+      color: red;
+    }
   }
   //  кнп-поиск TOUCH
   &__icon {
@@ -307,19 +321,19 @@
     display: flex;
     align-items: center;
     // для TOUCH(< 992px)
-        @media (max-width: $md2) {
-          // тень
-          box-shadow: 0 0 5px rgba(212, 209, 205, 0.3);
-          position: absolute;
-          width: 100%;
-          left: 0;
-          // сркыт
-          top: -100%;
-          z-index: 5;
-          opacity: 0;
-          visibility: hidden;
-          transition: all 0.3s ease 0s;
-        }
+    @media (max-width: $md2) {
+      // тень
+      box-shadow: 0 0 5px rgba(212, 209, 205, 0.3);
+      position: absolute;
+      width: 100%;
+      left: 0;
+      // сркыт
+      top: -100%;
+      z-index: 5;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.3s ease 0s;
+    }
   }
   //  кнп-поиск ПК
   &__btn {
