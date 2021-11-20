@@ -1,5 +1,6 @@
 var ua = window.navigator.userAgent;
 var msie = ua.indexOf("MSIE ");
+// вовращ устройства на котором находимся
 var isMobile = { Android: function () { return navigator.userAgent.match(/Android/i); }, BlackBerry: function () { return navigator.userAgent.match(/BlackBerry/i); }, iOS: function () { return navigator.userAgent.match(/iPhone|iPad|iPod/i); }, Opera: function () { return navigator.userAgent.match(/Opera Mini/i); }, Windows: function () { return navigator.userAgent.match(/IEMobile/i); }, any: function () { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); } };
 function isIE() {
 	ua = navigator.userAgent;
@@ -539,7 +540,7 @@ function _wrap(el, wrapper) {
 	wrapper.appendChild(el);
 }
 //========================================
-//RemoveClasses
+//RemoveClasses(удал доп классс(class_name))
 function _removeClasses(el, class_name) {
 	for (var i = 0; i < el.length; i++) {
 		el[i].classList.remove(class_name);

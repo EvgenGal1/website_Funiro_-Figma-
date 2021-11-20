@@ -1,2 +1,1 @@
-// подкл готовые ljgjkytybz(Slider). из папки libs/
-@@include('libs/smoothScroll.js', {})
+// подкл готовые дополнения(Slider,). из папки libs/
